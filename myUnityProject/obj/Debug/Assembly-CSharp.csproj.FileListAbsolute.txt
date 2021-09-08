@@ -1,0 +1,2 @@
+/Users/choiyounjin/jumi/unity_project/myUnityProject/myUnityProject/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
+/Users/choiyounjin/jumi/unity_project/myUnityProject/myUnityProject/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
