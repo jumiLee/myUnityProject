@@ -39,7 +39,7 @@ public class WebViewControl : MonoBehaviour
         //var canvas = GameObject.Find("Canvas");
         canvasWebViewPrefab = CanvasWebViewPrefab.Instantiate();
         //canvasWebViewPrefab.transform.parent = canvas.transform;
-        canvasWebViewPrefab.transform.parent = windowPanel.transform;
+        canvasWebViewPrefab.transform.SetParent(windowPanel.transform, false);
         var rectTransform = canvasWebViewPrefab.transform as RectTransform;
         rectTransform.anchoredPosition3D = Vector3.zero;
         rectTransform.offsetMin = Vector2.zero;

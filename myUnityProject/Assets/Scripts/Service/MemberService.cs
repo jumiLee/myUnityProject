@@ -7,22 +7,12 @@ namespace Service{
     { 
         public HttpSock HttpObject;
 
-        public MemberInfoPacket _MemberInfoPacket;  //session에 들고 다닐 정보
+        public MemberInfoPacket _MemberInfoPacket;  //sessionObject에 들고 다닐 정보
 
         private void Start()
         {
             HttpObject = gameObject.GetComponent<HttpSock>();
         }
-        /*
-        public Member MemberObject;
-        public void SelectMember()
-        {
-
-            string json = HttpObject.Connect("selectMember.do", "email=" + email.text + "&pwd=" + pwd.text);
-            
-            MemberObject = JsonUtility.FromJson<Member>(json);
-        }
-        */
 
         //login check -> return member info.
         public MemberInfoPacket LoginCheck(string email, string pwd)

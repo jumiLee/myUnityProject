@@ -4,7 +4,7 @@ using Packet;
 
 namespace Service
 {
-    public class MemberControl : MonoBehaviour
+    public class InitialSetControl : MonoBehaviour
     {
 
         public GameObject userSessionObject;
@@ -18,15 +18,22 @@ namespace Service
         public GameObject registerPanel;
         public GameObject loginPanel;
 
+        public Text user_gold;
+        public Text user_coin;
+        public Text user_nickname;
 
         public MemberService memberService;
+        public CharacterControl characterControl;
         private MemberInfoPacket memberInfoPacket;
+        private CharacterPacket characterPacket;
 
         private void Start()
         {
             memberService = userSessionObject.GetComponent<MemberService>();
+            characterControl = userSessionObject.GetComponent<CharacterControl>();
         }
 
+        //Check Login
         public void LoginCheck()
         {
             memberInfoPacket = memberService.LoginCheck(email.text, pwd.text);
@@ -35,7 +42,7 @@ namespace Service
             if (memberInfoPacket.resultCd == 0)   
             {
                 //UserSessionObject에 사용자 정보 set
-                memberService._MemberInfoPacket = memberInfoPacket;
+                SetEssentialInfo();
                 //close current login window
                 loginPanel.SetActive(false);
             }
@@ -46,6 +53,7 @@ namespace Service
             }
         }
 
+        //Register new Member
         public void RegisterMember()
         {
             int result_cd = 0;
@@ -74,15 +82,32 @@ namespace Service
 
             if (result_cd == 0)  //register success
             {
+                SetEssentialInfo();
                 registerPanel.SetActive(false);
-                //UserSessionObject에 사용자 정보 set
-                memberService._MemberInfoPacket = memberInfoPacket;
             }
             else //register fail
             {
                 //show error message
                 commonUtil.HandleAlert(memberInfoPacket.resultMsg);
             }
+        }
+
+        //Setting Essential Information at UserSessionObject after login or register
+        void SetEssentialInfo()
+        {
+            //Member Info
+            memberService._MemberInfoPacket = memberInfoPacket;
+
+            this.user_gold.text = memberInfoPacket.userDetail.gold.ToString();
+            this.user_coin.text = memberInfoPacket.userDetail.coin.ToString();
+            this.user_nickname.text = memberInfoPacket.userDetail.nickname;
+
+            //Character Info
+            characterPacket = characterControl.GetCharacterList(memberInfoPacket.account);
+            characterControl._CharacterPacket = characterPacket;
+            //대표 캐릭터 정보 세팅  
+            characterControl._CharacterPacket.carryUserCharacter = 
+                characterPacket.userCharacterList.Find(e => e.carry_flag == 1);
         }
     }
 }

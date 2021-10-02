@@ -4,6 +4,7 @@ using Packet;
 using Entity;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.U2D;
 
 namespace Service
 {
@@ -11,6 +12,7 @@ namespace Service
     {
         public HttpSock httpSock;
         public MemberService memberService;
+        public CharacterControl characterControl;
         public CommonUtil commonUtil;
 
         public GameObject itemPrefab;   //item prefab for generating item icon
@@ -20,25 +22,28 @@ namespace Service
         //public Sprite unitIconSprite;
         //public Text priceText;
 
+
+        public SpriteAtlas AtlasItem;
+
         public ItemPacket itemPacket;
         public List<ItemView> views = new List<ItemView>();
 
         public ArrayList selectedItemAry = new ArrayList();
 
-        //이정보를 담을 오브젝트를 별도로 만들어 관리해야 ...
+        private void Start()
+        {
+            AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
+
+        }
+        //선택한 아이템 정보를 배열에 저장 
         public void SelectMultiItem(string item_id)
         {
             selectedItemAry.Add(item_id);
-            Debug.Log("선택한 아이템 개수 :"+selectedItemAry.Count);
         }
 
+        //카테고리별 아이템 조회 
         public void GetItemListByCategory(Text item_category)
-        //public void GetItemListByCategory(GameObject currentTabButton)
         {
-
-            //string item_category = currentTabButton.GetComponent<Text>().text;
-
-            Debug.Log("item_category:" + item_category.text);
 
             string json = httpSock.Connect("selectItemLisByCategory.do",
                                            "user_account=" + memberService._MemberInfoPacket.account
@@ -47,24 +52,45 @@ namespace Service
             itemPacket = JsonUtility.FromJson<ItemPacket>(json);
 
             //Generate item list
-
             if (itemPacket.resultCd == 0)
             {
-                Debug.Log("itemPacket:" + itemPacket.itemList.Count + "개의 아이템이 있습니다.");
-
                 GenerateItemList(itemPacket.itemList);
             }
             else
             {
-                //fail alert window 
                 commonUtil.HandleAlert(itemPacket.resultMsg);
             }
         }
 
+        //아이템 구매 
+        public void BuyAndEquipItem()
+        {
+            CharacterPacket characterPacket = characterControl._CharacterPacket;
+
+            string json = httpSock.Connect("buyAndEquipItem.do",
+                                           "user_account=" + characterPacket.account
+                                         + "&char_id=" + characterPacket.carryUserCharacter.char_id
+                                         + "&user_char_sn=" + characterPacket.carryUserCharacter.user_char_sn
+                                         + "&item_id_array=" + string.Join(",", selectedItemAry.ToArray())
+                                         );
+
+            itemPacket = JsonUtility.FromJson<ItemPacket>(json);
+
+            //Generate item list
+            if (itemPacket.resultCd == 0)
+            {
+                GenerateItemList(itemPacket.itemList);
+            }
+            else
+            {
+                commonUtil.HandleAlert(itemPacket.resultMsg);
+            }
+        }
+
+
         //Generate item list with item prefab icon
         void GenerateItemList(List<Item> itemList)
         {
-
             //Destory pre-generated views
             foreach (Transform child in content) 
             {
@@ -73,7 +99,6 @@ namespace Service
             views.Clear();
 
             //Generate new item list with itemList 
-            int i = 0;
             foreach(var model in itemList)
             {
                 GameObject instance = GameObject.Instantiate(itemPrefab.gameObject) as GameObject;
@@ -85,9 +110,6 @@ namespace Service
                 //생성한 버튼에 onClick Event 생성 
                 instance.GetComponent<Button>().onClick.AddListener(() => SelectMultiItem(model.item_id.ToString()));
                 instance.GetComponentInChildren<Text>().text = model.item_id.ToString();
-
-                i++;
-
                 views.Add(view);
             }
         }
@@ -115,7 +137,6 @@ namespace Service
             public Text itemId;
             public Sprite itemUnit;
             public Sprite itemImg;
-
 
             public ItemView (Transform rootView)
             {

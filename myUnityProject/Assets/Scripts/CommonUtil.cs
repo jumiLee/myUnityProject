@@ -6,6 +6,7 @@ public class CommonUtil : MonoBehaviour
 {
 
     public GameObject panelAlert;
+    public Text alertMsgText;
     public string url;
     public GameObject openNewPanel;  //현재창을 닫고 
     public GameObject closeNewPanel; //새로운 창을 열고자 할때 세팅 
@@ -15,9 +16,7 @@ public class CommonUtil : MonoBehaviour
     {
         //Open Alert Panel -> show error message
         panelAlert.SetActive(true);
-        //panelAlert.GetComponent<Text>().text = msg;
-        panelAlert.transform.GetComponent<Text>().text = msg;
-        //panelAlert.GetComponent<Text>().text = msg;
+        alertMsgText.text = msg;
     }
 
     public void ControlPanel(GameObject panel)

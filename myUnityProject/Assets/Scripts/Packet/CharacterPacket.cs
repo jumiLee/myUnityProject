@@ -9,5 +9,6 @@ namespace Packet
     {
         public string sid; 
         public List<UserCharacter> userCharacterList;
+        public UserCharacter carryUserCharacter;
     }
 }
