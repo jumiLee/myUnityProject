@@ -1,16 +1,32 @@
 ﻿<Properties StartupConfiguration="{3278C650-204A-2FF9-35A3-2521C65E6070}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DatabaseHandler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Service/ItemControl.cs">
     <Files>
-      <File FileName="Assets/Scripts/DatabaseHandler.cs" Line="9" Column="3" />
+      <File FileName="Assets/Scripts/Service/ItemControl.cs" Line="31" Column="42" />
+      <File FileName="Assets/Scripts/TabGroup.cs" Line="52" Column="10" />
+      <File FileName="Assets/Scripts/TabButtonControl.cs" Line="20" Column="31" />
+      <File FileName="Assets/Scripts/Packet/ItemPacket.cs" Line="1" Column="1" />
+      <File FileName="Assets/Vuplex/WebView/Scripts/Common/CanvasWebViewPrefab.cs" Line="55" Column="59" />
+      <File FileName="Assets/Scripts/CommonUtil.cs" Line="22" Column="1" />
+      <File FileName="Assets/Scripts/WebViewControl.cs" Line="21" Column="37" />
+      <File FileName="Assets/Scripts/TestDynamicPrefabWithButtonOnclick.cs" Line="23" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="myUnityProject" expanded="True" />
           <Node name="myUnityProject" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="DatabaseHandler.cs" selected="True" />
+                <Node name="Service" expanded="True">
+                  <Node name="ItemControl.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="TutorialInfo" expanded="True" />
+              <Node name="Vuplex" expanded="True">
+                <Node name="WebView" expanded="True">
+                  <Node name="Scripts" expanded="True">
+                    <Node name="Common" expanded="True" />
+                  </Node>
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -20,7 +36,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="d7ce4d04-7305-40c1-88f1-9f5b2becb7e9" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

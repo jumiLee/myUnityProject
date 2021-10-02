@@ -11,7 +11,8 @@ public class WebViewControl : MonoBehaviour
 
     public CanvasWebViewPrefab canvasWebViewPrefab;
     public GameObject UserSessionObject;
-    public GameObject targetPanel;
+    public GameObject targetPanel;  //웹화면을 싸고 있는 부모 패널 
+    public GameObject windowPanel;  //실제 웹화면이 나올 패널 
 
     private HttpSock httpSock;
     private int user_account = 0;
@@ -38,7 +39,7 @@ public class WebViewControl : MonoBehaviour
         //var canvas = GameObject.Find("Canvas");
         canvasWebViewPrefab = CanvasWebViewPrefab.Instantiate();
         //canvasWebViewPrefab.transform.parent = canvas.transform;
-        canvasWebViewPrefab.transform.parent = targetPanel.transform;
+        canvasWebViewPrefab.transform.parent = windowPanel.transform;
         var rectTransform = canvasWebViewPrefab.transform as RectTransform;
         rectTransform.anchoredPosition3D = Vector3.zero;
         rectTransform.offsetMin = Vector2.zero;
