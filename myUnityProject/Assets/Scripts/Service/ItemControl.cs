@@ -15,6 +15,8 @@ namespace Service
         public CharacterControl characterControl;
         public CommonUtil commonUtil;
 
+        public ItemPrefabView itemPrefabView;
+
         public GameObject itemPrefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
 
@@ -24,6 +26,7 @@ namespace Service
 
 
         public SpriteAtlas AtlasItem;
+        public SpriteAtlas AtlasIcon;
 
         public ItemPacket itemPacket;
         public List<ItemView> views = new List<ItemView>();
@@ -33,12 +36,15 @@ namespace Service
         private void Start()
         {
             AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
+            AtlasIcon = Resources.Load<SpriteAtlas>("Atlas/IconSpriteAtlas") as SpriteAtlas;
+            Debug.Log("spriteCount:" + AtlasItem.spriteCount);
 
         }
         //선택한 아이템 정보를 배열에 저장 
         public void SelectMultiItem(string item_id)
         {
             selectedItemAry.Add(item_id);
+            Debug.Log("item_id:" + item_id);
         }
 
         //카테고리별 아이템 조회 
@@ -102,13 +108,20 @@ namespace Service
             foreach(var model in itemList)
             {
                 GameObject instance = GameObject.Instantiate(itemPrefab.gameObject) as GameObject;
-                instance.transform.SetParent(content);
+                instance.transform.SetParent(content, false);
 
                 //생성한 Item Icon에 값 설정  
                 var view = InitializeItemView(instance, model);
 
                 //생성한 버튼에 onClick Event 생성 
-                instance.GetComponent<Button>().onClick.AddListener(() => SelectMultiItem(model.item_id.ToString()));
+                if (instance.GetComponentInChildren<Button>())
+                {
+                    instance.GetComponentInChildren<Button>().onClick.AddListener(() => SelectMultiItem(model.item_id.ToString()));
+                }
+                else
+                {
+                    Debug.Log("object instantiate Failed!");
+                }
                 instance.GetComponentInChildren<Text>().text = model.item_id.ToString();
                 views.Add(view);
             }
@@ -121,17 +134,20 @@ namespace Service
 
             view.itemName.text = model.item_nm;
             view.itemPrice.text = model.item_price.ToString();
-            view.itemId.text = model.item_id.ToString();
-            //view.itemUnitImg = model.unit_cd;
-            //view.itemImg = model.item_img_no.ToString();
+            //view.itemId.text = model.item_id.ToString();
+            //view.itemUnit.sprite = AtlasItem.GetSprite("unit"+model.unit_cd.ToString());
+            view.itemUnit = Resources.Load<Sprite>("Images/icon/" + model.unit_cd.ToString()) as Sprite;
+            view.itemImg = Resources.Load<Sprite>("Images/item/" + model.item_img_no.ToString()) as Sprite;
+
             //view.icon3Image.texture = availableIcons[model.icon3Index];
 
             return view;
         }
 
         //ItemIconPrefab structure
+        [SerializeField]
         public class ItemView
-        {
+        { 
             public Text itemName;
             public Text itemPrice;
             public Text itemId;
@@ -142,10 +158,12 @@ namespace Service
             {
                 itemPrice   = rootView.Find("txt_itemPrice").GetComponent<Text>();
                 itemName = rootView.Find("txt_itemName").GetComponent<Text>();
-                itemId = rootView.Find("txt_itemId").GetComponent<Text>();
+                //itemId = rootView.Find("txt_itemId").GetComponent<Text>();
                 itemUnit = rootView.Find("img_unit").GetComponent<Sprite>();
                 itemImg = rootView.Find("img_item").GetComponent<Sprite>();
+               // itemImg = rootView.Find("img_item").GetComponent<SpriteRenderer>();
             }
         }
+
     }
 }
