@@ -10,9 +10,10 @@ namespace Service
 {
     public class ItemControl : MonoBehaviour
     {
-        public HttpSock httpSock;
-        public MemberService memberService;
-        public CharacterControl characterControl;
+
+        public UserSession userSession;
+        //public MemberService memberService;
+        //public CharacterControl characterControl;
         public CommonUtil commonUtil;
 
         public ItemPrefabView itemPrefabView;
@@ -33,11 +34,17 @@ namespace Service
 
         public ArrayList selectedItemAry = new ArrayList();
 
+
+        private HttpSock httpSock;
+        private UserCharacter userCharacter;
+       
         private void Start()
         {
             AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
             AtlasIcon = Resources.Load<SpriteAtlas>("Atlas/IconSpriteAtlas") as SpriteAtlas;
-            Debug.Log("spriteCount:" + AtlasItem.spriteCount);
+
+            httpSock = userSession._HttpObject;
+            userCharacter = userSession._UserCharacter;
 
         }
         //선택한 아이템 정보를 배열에 저장 
@@ -52,7 +59,7 @@ namespace Service
         {
 
             string json = httpSock.Connect("selectItemLisByCategory.do",
-                                           "user_account=" + memberService._MemberInfoPacket.account
+                                           "user_account=" + userCharacter.user_account
                                          + "&item_category=" + item_category.text);
 
             itemPacket = JsonUtility.FromJson<ItemPacket>(json);
@@ -71,12 +78,10 @@ namespace Service
         //아이템 구매 
         public void BuyAndEquipItem()
         {
-            CharacterPacket characterPacket = characterControl._CharacterPacket;
-
             string json = httpSock.Connect("buyAndEquipItem.do",
-                                           "user_account=" + characterPacket.account
-                                         + "&char_id=" + characterPacket.carryUserCharacter.char_id
-                                         + "&user_char_sn=" + characterPacket.carryUserCharacter.user_char_sn
+                                           "user_account=" + userCharacter.user_account
+                                         + "&char_id=" + userCharacter.char_id
+                                         + "&user_char_sn=" + userCharacter.user_char_sn
                                          + "&item_id_array=" + string.Join(",", selectedItemAry.ToArray())
                                          );
 

@@ -10,9 +10,10 @@ namespace Service
 {
     public class ItemEquipControl : MonoBehaviour
     {
-        public HttpSock httpSock;
-        public MemberService memberService;
-        public CharacterControl characterControl;
+        public UserSession userSession;
+        //
+        //public MemberService memberService;
+        //public CharacterControl characterControl;
         public CommonUtil commonUtil;
 
         public ItemPrefabView prefabView;
@@ -31,14 +32,17 @@ namespace Service
         public List<ItemView> views = new List<ItemView>();
 
         public ArrayList selectedEquipItemAry = new ArrayList();
-        public CharacterPacket characterPacket;
+        public UserCharacter userCharacter;
+
+        private HttpSock httpSock;
 
         private void Start()
         {
             AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
 
-            characterPacket = characterControl._CharacterPacket;
-
+            //characterPacket = characterControl._CharacterPacket;
+            userCharacter = userSession._UserCharacter;
+            httpSock = userSession._HttpObject;
         }
         //선택한 아이템 정보를 배열에 저장 
         public void SelectMultiEquipItem(string item_uniqueID)
@@ -51,9 +55,9 @@ namespace Service
         public void GetMyItemWithEquip(Text item_category)
         {
             string json = httpSock.Connect("getMyItemWithEquip.do",
-                                           "user_account="  + characterPacket.carryUserCharacter.user_account
-                                         + "&char_id="      + characterPacket.carryUserCharacter.char_id
-                                         + "&user_char_sn=" + characterPacket.carryUserCharacter.user_char_sn
+                                           "user_account="  + userCharacter.user_account
+                                         + "&char_id="      + userCharacter.char_id
+                                         + "&user_char_sn=" + userCharacter.user_char_sn
                                          + "&item_category="+ item_category.text
                                          + "&item_type=0"   //All category
                                          );
@@ -84,9 +88,9 @@ namespace Service
 
             string json = httpSock.Connect("equipItem.do",
                                            "job_code=" + job_code
-                                         + "&user_account=" + characterPacket.account
-                                         + "&char_id=" + characterPacket.carryUserCharacter.char_id
-                                         + "&user_char_sn=" + characterPacket.carryUserCharacter.user_char_sn
+                                         + "&user_account=" + userCharacter.user_account
+                                         + "&char_id=" + userCharacter.char_id
+                                         + "&user_char_sn=" + userCharacter.user_char_sn
                                          + "&item_id=" + item_id
                                          + "&item_uniqueID=" + item_uniqueID
                                          + "&item_category=" + item_category

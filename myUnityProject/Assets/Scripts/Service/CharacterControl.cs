@@ -7,8 +7,6 @@ namespace Service
     {
         public HttpSock HttpObject; 
 
-        public CharacterPacket _CharacterPacket; //sessionObject에 들고 다닐 정보
-
         private void Start()
         {
             HttpObject = gameObject.GetComponent<HttpSock>();

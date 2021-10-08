@@ -7,13 +7,17 @@ namespace Service
     public class InitialSetControl : MonoBehaviour
     {
 
-        public GameObject userSessionObject;
+        //public GameObject userSessionObject;
+        public UserSession _UserSession;
         public CommonUtil commonUtil;
 
 
         public InputField email;
         public InputField pwd;
         public InputField nickname;
+
+        public InputField login_email;
+        public InputField login_pwd;
 
         public GameObject registerPanel;
         public GameObject loginPanel;
@@ -27,29 +31,30 @@ namespace Service
         public GameObject friend_new_btn;
         public GameObject Panel_attend;
 
-        public MemberService memberService;
-        public CharacterControl characterControl;
-
+        public MemberControl memberControl;
+       // public CharacterControl characterControl;
         private MemberInfoPacket memberInfoPacket;
-        private CharacterPacket characterPacket;
+        //private CharacterPacket characterPacket;
         private MembeMemberInitialInfoPacket membeMemberInitialInfoPacket;
 
         private void Start()
         {
-            memberService = userSessionObject.GetComponent<MemberService>();
-            characterControl = userSessionObject.GetComponent<CharacterControl>();
+            //memberInfoPacket = new MemberInfoPacket();
+            //memberService = userSessionObject.GetComponent<MemberService>();
+            //characterControl = userSessionObject.GetComponent<CharacterControl>();
+            memberControl.HttpObject = _UserSession._HttpObject;
         }
 
         //Check Login
         public void LoginCheck()
         {
-            memberInfoPacket = memberService.LoginCheck(email.text, pwd.text);
+            memberInfoPacket = memberControl.LoginCheck(login_email.text, login_pwd.text);
 
         
             if (memberInfoPacket.resultCd == 0)   
             {
-                //출석체크 등록 
-
+                //Character 가져옴 
+                membeMemberInitialInfoPacket = memberControl.GetUserInitialInfo(memberInfoPacket.account);
 
                 //UserSessionObject에 사용자 정보 set
                 SetEssentialInfo();
@@ -89,7 +94,7 @@ namespace Service
                 return;
             }
 
-            memberInfoPacket = memberService.RegisterMember(email.text, pwd.text, nickname.text);
+            memberInfoPacket = memberControl.RegisterMember(email.text, pwd.text, nickname.text);
             result_cd = memberInfoPacket.resultCd;
 
             if (result_cd == 0)  //register success
@@ -109,28 +114,33 @@ namespace Service
         void SetEssentialInfo()
         {
         //Member Info
-            memberService._MemberInfoPacket = memberInfoPacket;
 
-            this.user_gold.text = memberInfoPacket.userDetail.gold.ToString();
-            this.user_coin.text = memberInfoPacket.userDetail.coin.ToString();
-            this.user_nickname.text = memberInfoPacket.userDetail.nickname;
-
-            membeMemberInitialInfoPacket = memberService.GetUserInitialInfo(memberInfoPacket.account);
+            _UserSession._UserDetail = memberInfoPacket.userDetail;
 
         //New Sign Setting
-            if (membeMemberInitialInfoPacket.new_item_flag.Equals("Y")) 
-                inventory_new_btn.SetActive(true);
-            if (membeMemberInitialInfoPacket.new_msg_flag.Equals("Y")) 
-                message_new_btn.SetActive(true);
-            if (membeMemberInitialInfoPacket.new_frd_flag.Equals("Y")) 
-                friend_new_btn.SetActive(true);
+            _UserSession._NoticeNew.new_msg = membeMemberInitialInfoPacket.new_item_flag;
+            _UserSession._NoticeNew.new_inventory = membeMemberInitialInfoPacket.new_item_flag;
+            _UserSession._NoticeNew.new_friend = membeMemberInitialInfoPacket.new_frd_flag;
+
+        //화면에 보여질 항목 세팅 
+            this.user_gold.text = _UserSession._UserDetail.gold.ToString();
+            this.user_coin.text = _UserSession._UserDetail.coin.ToString();
+            this.user_nickname.text = _UserSession._UserDetail.nickname;
 
         //대표 캐릭터 정보 세팅  
-            characterControl._CharacterPacket.carryUserCharacter = membeMemberInitialInfoPacket.carryUserCharacter;
+            _UserSession._UserCharacter = membeMemberInitialInfoPacket.carryUserCharacter;
+
+            if (_UserSession._NoticeNew.new_inventory.Equals("Y"))
+                inventory_new_btn.SetActive(true);
+            if (_UserSession._NoticeNew.new_msg.Equals("Y")) 
+                message_new_btn.SetActive(true);
+            if (_UserSession._NoticeNew.new_friend.Equals("Y")) 
+                friend_new_btn.SetActive(true);
 
         //출석체크 창 열기  
             if (membeMemberInitialInfoPacket.attend_show_flag.Equals("Y"))
                 Panel_attend.SetActive(true);
+            _UserSession.Panel_lobby.SetActive(true);
         }
     }
 }
