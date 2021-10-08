@@ -2,9 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Packet;
 using Entity;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.U2D;
 
 namespace Service
 {
@@ -29,6 +27,26 @@ namespace Service
         {
 
             string json = httpSock.Connect("selectUserAttend.do",
+                                           "user_account=" + memberService._MemberInfoPacket.account);
+
+            userAttendPacket = JsonUtility.FromJson<UserAttendPacket>(json);
+
+            //Generate item list
+            if (userAttendPacket.resultCd == 0)
+            {
+                GenerateItemList(userAttendPacket.userAttendList);
+            }
+            else
+            {
+                commonUtil.HandleAlert(userAttendPacket.resultMsg);
+            }
+        }
+
+        //출석 등록  
+        public void RegisterUserAttend()
+        {
+
+            string json = httpSock.Connect("registerUserAttend.do",
                                            "user_account=" + memberService._MemberInfoPacket.account);
 
             userAttendPacket = JsonUtility.FromJson<UserAttendPacket>(json);

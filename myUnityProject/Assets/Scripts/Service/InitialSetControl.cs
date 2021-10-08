@@ -22,10 +22,17 @@ namespace Service
         public Text user_coin;
         public Text user_nickname;
 
+        public GameObject inventory_new_btn;
+        public GameObject message_new_btn;
+        public GameObject friend_new_btn;
+        public GameObject Panel_attend;
+
         public MemberService memberService;
         public CharacterControl characterControl;
+
         private MemberInfoPacket memberInfoPacket;
         private CharacterPacket characterPacket;
+        private MembeMemberInitialInfoPacket membeMemberInitialInfoPacket;
 
         private void Start()
         {
@@ -41,8 +48,12 @@ namespace Service
         
             if (memberInfoPacket.resultCd == 0)   
             {
+                //출석체크 등록 
+
+
                 //UserSessionObject에 사용자 정보 set
                 SetEssentialInfo();
+
                 //close current login window
                 loginPanel.SetActive(false);
             }
@@ -53,7 +64,8 @@ namespace Service
             }
         }
 
-        //Register new Member
+        //Todo : 별도 class로 분리하자 
+        //Register new Member 
         public void RegisterMember()
         {
             int result_cd = 0;
@@ -92,22 +104,33 @@ namespace Service
             }
         }
 
+
         //Setting Essential Information at UserSessionObject after login or register
         void SetEssentialInfo()
         {
-            //Member Info
+        //Member Info
             memberService._MemberInfoPacket = memberInfoPacket;
 
             this.user_gold.text = memberInfoPacket.userDetail.gold.ToString();
             this.user_coin.text = memberInfoPacket.userDetail.coin.ToString();
             this.user_nickname.text = memberInfoPacket.userDetail.nickname;
 
-            //Character Info
-            characterPacket = characterControl.GetCharacterList(memberInfoPacket.account);
-            characterControl._CharacterPacket = characterPacket;
-            //대표 캐릭터 정보 세팅  
-            characterControl._CharacterPacket.carryUserCharacter = 
-                characterPacket.userCharacterList.Find(e => e.carry_flag == 1);
+            membeMemberInitialInfoPacket = memberService.GetUserInitialInfo(memberInfoPacket.account);
+
+        //New Sign Setting
+            if (membeMemberInitialInfoPacket.new_item_flag.Equals("Y")) 
+                inventory_new_btn.SetActive(true);
+            if (membeMemberInitialInfoPacket.new_msg_flag.Equals("Y")) 
+                message_new_btn.SetActive(true);
+            if (membeMemberInitialInfoPacket.new_frd_flag.Equals("Y")) 
+                friend_new_btn.SetActive(true);
+
+        //대표 캐릭터 정보 세팅  
+            characterControl._CharacterPacket.carryUserCharacter = membeMemberInitialInfoPacket.carryUserCharacter;
+
+        //출석체크 창 열기  
+            if (membeMemberInitialInfoPacket.attend_show_flag.Equals("Y"))
+                Panel_attend.SetActive(true);
         }
     }
 }

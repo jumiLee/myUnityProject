@@ -8,7 +8,7 @@ namespace Packet
     public class CharacterPacket : HeaderPacket
     {
         public string sid; 
-        public List<UserCharacter> userCharacterList;
+        //public List<UserCharacter> userCharacterList;
         public UserCharacter carryUserCharacter;
     }
 }

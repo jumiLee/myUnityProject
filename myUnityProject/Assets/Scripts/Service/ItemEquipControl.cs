@@ -51,13 +51,13 @@ namespace Service
         public void GetMyItemWithEquip(Text item_category)
         {
             string json = httpSock.Connect("getMyItemWithEquip.do",
-                                           "user_account="  + characterPacket.account
+                                           "user_account="  + characterPacket.carryUserCharacter.user_account
                                          + "&char_id="      + characterPacket.carryUserCharacter.char_id
                                          + "&user_char_sn=" + characterPacket.carryUserCharacter.user_char_sn
                                          + "&item_category="+ item_category.text
                                          + "&item_type=0"   //All category
                                          );
-
+             
             userCharEquipItemPacket = JsonUtility.FromJson<UserCharEquipItemPacket>(json);
 
             //Generate item list
