@@ -15,9 +15,7 @@ namespace Service
         //public MemberService memberService;
         //public CharacterControl characterControl;
         public CommonUtil commonUtil;
-
-        public ItemPrefabView itemPrefabView;
-
+        
         public GameObject itemPrefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
 

@@ -21,6 +21,7 @@ namespace Service
 
         public GameObject registerPanel;
         public GameObject loginPanel;
+//        public GameObject Panel_attend;
 
         public Text user_gold;
         public Text user_coin;
@@ -29,10 +30,11 @@ namespace Service
         public GameObject inventory_new_btn;
         public GameObject message_new_btn;
         public GameObject friend_new_btn;
-        public GameObject Panel_attend;
+
 
         public MemberControl memberControl;
-       // public CharacterControl characterControl;
+        public AttendControl attendControl;
+        // public CharacterControl characterControl;
         private MemberInfoPacket memberInfoPacket;
         //private CharacterPacket characterPacket;
         private MembeMemberInitialInfoPacket membeMemberInitialInfoPacket;
@@ -137,9 +139,14 @@ namespace Service
             if (_UserSession._NoticeNew.new_friend.Equals("Y")) 
                 friend_new_btn.SetActive(true);
 
-        //출석체크 창 열기  
+            //출석체크 창 열기  
             if (membeMemberInitialInfoPacket.attend_show_flag.Equals("Y"))
-                Panel_attend.SetActive(true);
+            {
+                //Panel_attend.SetActive(true);
+                //attendControl.httpSock = _UserSession._HttpObject;
+                attendControl.GetUserAttendList(_UserSession._UserDetail.account);
+            }
+               
             _UserSession.Panel_lobby.SetActive(true);
         }
     }

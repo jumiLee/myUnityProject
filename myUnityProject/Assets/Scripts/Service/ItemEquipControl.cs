@@ -16,8 +16,6 @@ namespace Service
         //public CharacterControl characterControl;
         public CommonUtil commonUtil;
 
-        public ItemPrefabView prefabView;
-
         public GameObject prefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
 
@@ -78,12 +76,6 @@ namespace Service
         //Euqip Item
         public void EquipItem (int equip_yn, int item_id, int item_uniqueID, int item_category)
         {
-            Debug.Log("equip_yn:" + equip_yn);
-            Debug.Log("item_id:" + item_id);
-            Debug.Log("item_uniqueID:" + item_uniqueID);
-            Debug.Log("item_category:" + item_category);
-
-
             int job_code = (equip_yn == 1) ? 2 : 1; //1:장착, 2: 장착해제 
 
             string json = httpSock.Connect("equipItem.do",

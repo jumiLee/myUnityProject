@@ -9,25 +9,27 @@ namespace Service
     public class AttendControl : MonoBehaviour
     {
         public HttpSock httpSock;
-        public MemberService memberService;
+        //public MemberService memberService;
         public CommonUtil commonUtil;
+        public GameObject Panel_attend;
 
         public GameObject prefab;       //Attend prefab
         public RectTransform content;   //list will be added on this panel
-        public UserAttendPacket userAttendPacket;
-        public List<AttendView> views = new List<AttendView>();
+
+        private UserAttendPacket userAttendPacket;
+        private List<AttendView> views = new List<AttendView>();
     
         private void Start()
         {
-            GetUserAttendList();
+           //GetUserAttendList();
         }
 
         //출석 조회 
-        public void GetUserAttendList()
+        public void GetUserAttendList(int user_account)
         {
 
             string json = httpSock.Connect("selectUserAttend.do",
-                                           "user_account=" + memberService._MemberInfoPacket.account);
+                                           "user_account=" + user_account);
 
             userAttendPacket = JsonUtility.FromJson<UserAttendPacket>(json);
 
@@ -35,26 +37,7 @@ namespace Service
             if (userAttendPacket.resultCd == 0)
             {
                 GenerateItemList(userAttendPacket.userAttendList);
-            }
-            else
-            {
-                commonUtil.HandleAlert(userAttendPacket.resultMsg);
-            }
-        }
-
-        //출석 등록  
-        public void RegisterUserAttend()
-        {
-
-            string json = httpSock.Connect("registerUserAttend.do",
-                                           "user_account=" + memberService._MemberInfoPacket.account);
-
-            userAttendPacket = JsonUtility.FromJson<UserAttendPacket>(json);
-
-            //Generate item list
-            if (userAttendPacket.resultCd == 0)
-            {
-                GenerateItemList(userAttendPacket.userAttendList);
+                Panel_attend.SetActive(true);
             }
             else
             {
