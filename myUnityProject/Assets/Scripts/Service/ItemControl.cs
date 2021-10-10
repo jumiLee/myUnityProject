@@ -33,16 +33,16 @@ namespace Service
         public ArrayList selectedItemAry = new ArrayList();
 
 
-        private HttpSock httpSock;
-        private UserCharacter userCharacter;
+        //private HttpSock httpSock;
+        //private UserCharacter userCharacter;
        
         private void Start()
         {
             AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
             AtlasIcon = Resources.Load<SpriteAtlas>("Atlas/IconSpriteAtlas") as SpriteAtlas;
 
-            httpSock = userSession._HttpObject;
-            userCharacter = userSession._UserCharacter;
+            //httpSock = userSession._HttpObject;
+            //userCharacter = userSession._UserCharacter;
 
         }
         //선택한 아이템 정보를 배열에 저장 
@@ -56,8 +56,8 @@ namespace Service
         public void GetItemListByCategory(Text item_category)
         {
 
-            string json = httpSock.Connect("selectItemLisByCategory.do",
-                                           "user_account=" + userCharacter.user_account
+            string json = userSession._HttpObject.Connect("selectItemLisByCategory.do",
+                                           "user_account=" + userSession._UserCharacter.user_account
                                          + "&item_category=" + item_category.text);
 
             itemPacket = JsonUtility.FromJson<ItemPacket>(json);
@@ -76,10 +76,10 @@ namespace Service
         //아이템 구매 
         public void BuyAndEquipItem()
         {
-            string json = httpSock.Connect("buyAndEquipItem.do",
-                                           "user_account=" + userCharacter.user_account
-                                         + "&char_id=" + userCharacter.char_id
-                                         + "&user_char_sn=" + userCharacter.user_char_sn
+            string json = userSession._HttpObject.Connect("buyAndEquipItem.do",
+                                           "user_account=" + userSession._UserCharacter.user_account
+                                         + "&char_id=" + userSession._UserCharacter.char_id
+                                         + "&user_char_sn=" + userSession._UserCharacter.user_char_sn
                                          + "&item_id_array=" + string.Join(",", selectedItemAry.ToArray())
                                          );
 

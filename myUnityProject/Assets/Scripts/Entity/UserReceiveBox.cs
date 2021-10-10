@@ -14,7 +14,7 @@ namespace Entity
         public DateTime issue_dt;
         public string receive_msg;
         public DateTime check_dt;
-        public int check_flag;
+        public string check_flag;
         public string sender_nickname;
         public string rwd_nm;
     }

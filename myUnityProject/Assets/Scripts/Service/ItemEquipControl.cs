@@ -30,17 +30,17 @@ namespace Service
         public List<ItemView> views = new List<ItemView>();
 
         public ArrayList selectedEquipItemAry = new ArrayList();
-        public UserCharacter userCharacter;
+        //public UserCharacter userCharacter;
 
-        private HttpSock httpSock;
+        //private HttpSock httpSock;
 
         private void Start()
         {
             AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
 
             //characterPacket = characterControl._CharacterPacket;
-            userCharacter = userSession._UserCharacter;
-            httpSock = userSession._HttpObject;
+            //userCharacter = userSession._UserCharacter;
+            //httpSock = userSession._HttpObject;
         }
         //선택한 아이템 정보를 배열에 저장 
         public void SelectMultiEquipItem(string item_uniqueID)
@@ -52,10 +52,10 @@ namespace Service
         //Search My Inventory Items by Item Category 
         public void GetMyItemWithEquip(Text item_category)
         {
-            string json = httpSock.Connect("getMyItemWithEquip.do",
-                                           "user_account="  + userCharacter.user_account
-                                         + "&char_id="      + userCharacter.char_id
-                                         + "&user_char_sn=" + userCharacter.user_char_sn
+            string json = userSession._HttpObject.Connect("getMyItemWithEquip.do",
+                                           "user_account="  + userSession._UserCharacter.user_account
+                                         + "&char_id="      + userSession._UserCharacter.char_id
+                                         + "&user_char_sn=" + userSession._UserCharacter.user_char_sn
                                          + "&item_category="+ item_category.text
                                          + "&item_type=0"   //All category
                                          );
@@ -78,11 +78,11 @@ namespace Service
         {
             int job_code = (equip_yn == 1) ? 2 : 1; //1:장착, 2: 장착해제 
 
-            string json = httpSock.Connect("equipItem.do",
+            string json = userSession._HttpObject.Connect("equipItem.do",
                                            "job_code=" + job_code
-                                         + "&user_account=" + userCharacter.user_account
-                                         + "&char_id=" + userCharacter.char_id
-                                         + "&user_char_sn=" + userCharacter.user_char_sn
+                                         + "&user_account=" + userSession._UserCharacter.user_account
+                                         + "&char_id=" + userSession._UserCharacter.char_id
+                                         + "&user_char_sn=" + userSession._UserCharacter.user_char_sn
                                          + "&item_id=" + item_id
                                          + "&item_uniqueID=" + item_uniqueID
                                          + "&item_category=" + item_category

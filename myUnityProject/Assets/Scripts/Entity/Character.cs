@@ -11,7 +11,7 @@ namespace Entity
         public int char_max_lv;
         public int char_lv;
         public string char_desc;
-        public int del_flag;
+        public string del_flag;
         public DateTime del_dt;
         public string char_shape_info;
     }
