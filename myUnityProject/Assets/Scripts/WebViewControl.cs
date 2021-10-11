@@ -10,7 +10,7 @@ public class WebViewControl : MonoBehaviour
 {
 
     public CanvasWebViewPrefab canvasWebViewPrefab;
-    public GameObject UserSessionObject;
+    public UserSession userSession;
     public GameObject targetPanel;  //웹화면을 싸고 있는 부모 패널 
     public GameObject windowPanel;  //실제 웹화면이 나올 패널 
 
@@ -20,8 +20,9 @@ public class WebViewControl : MonoBehaviour
 
     public void openAttendWebWindow()
     {
-        this.user_account = UserSessionObject.GetComponent<MemberService>()._MemberInfoPacket.account;
-        this.url = UserSessionObject.GetComponent<HttpSock>().getMainURL();
+        this.user_account = userSession._UserDetail.account;
+        this.url = userSession._HttpObject.getMainURL();
+            //UserSessionObject.GetComponent<HttpSock>().getMainURL();
 
         url = url +"userAttend.do?user_account=" + user_account;
 

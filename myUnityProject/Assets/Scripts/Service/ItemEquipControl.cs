@@ -123,7 +123,6 @@ namespace Service
 
                 //생성한 버튼에 onClick Event 생성 
                 if(instance.GetComponentInChildren<Button>()) {
-                    //instance.GetComponentInChildren<Button>().onClick.AddListener(() => SelectMultiEquipItem(model.item_uniqueID.ToString()));
                     instance.GetComponentInChildren<Button>().onClick.AddListener(() => EquipItem(model.equip_yn,
                                                                                         model.item_id,
                                                                                         model.item_uniqueID,
@@ -152,12 +151,8 @@ namespace Service
         {
             ItemView view = new ItemView(viewGameObject.transform);
 
-            //view.itemName.text = model.item_nm;
-            //view.itemPrice.text = model.item_price.ToString();
             view.itemId.text = model.item_id.ToString();
-            //view.itemUnit.sprite = AtlasItem.GetSprite("unit"+model.unit_cd.ToString());
-            //view.itemUnit = Resources.Load<Sprite>("Images/icon/" + model.unit_cd.ToString()) as Sprite;
-            view.itemImg = Resources.Load<Sprite>("Images/item/" + model.item_img_no.ToString()) as Sprite;
+            view.itemImg.sprite = Resources.Load<Sprite>("Images/item/" + model.item_img_no.ToString()) as Sprite;
 
             //view.icon3Image.texture = availableIcons[model.icon3Index];
 
@@ -171,16 +166,13 @@ namespace Service
             public Text itemName;
             public Text itemPrice;
             public Text itemId;
-            public Sprite itemUnit;
-            public Sprite itemImg;
+            public Image itemUnit;
+            public Image itemImg;
 
             public ItemView(Transform rootView)
             {
-                //itemPrice = rootView.Find("txt_itemPrice").GetComponent<Text>();
-                //itemName = rootView.Find("txt_itemName").GetComponent<Text>();
                 itemId = rootView.Find("txt_itemId").GetComponent<Text>();
-                //itemUnit = rootView.Find("img_unit").GetComponent<Sprite>();
-                itemImg = rootView.Find("img_item").GetComponent<Sprite>();
+                itemImg = rootView.Find("img_item").GetComponent<Image>();
                 // itemImg = rootView.Find("img_item").GetComponent<SpriteRenderer>();
             }
         }

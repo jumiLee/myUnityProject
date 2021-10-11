@@ -139,10 +139,8 @@ namespace Service
             view.itemPrice.text = model.item_price.ToString();
             //view.itemId.text = model.item_id.ToString();
             //view.itemUnit.sprite = AtlasItem.GetSprite("unit"+model.unit_cd.ToString());
-            view.itemUnit = Resources.Load<Sprite>("Images/icon/" + model.unit_cd.ToString()) as Sprite;
-            view.itemImg = Resources.Load<Sprite>("Images/item/" + model.item_img_no.ToString()) as Sprite;
-
-            //view.icon3Image.texture = availableIcons[model.icon3Index];
+            view.itemUnit.sprite = Resources.Load<Sprite>("Images/icon/unit_" + model.unit_cd.ToString()) as Sprite;
+            view.itemImg.sprite = Resources.Load<Sprite>("Images/item/" + model.item_img_no.ToString()) as Sprite;
 
             return view;
         }
@@ -154,16 +152,16 @@ namespace Service
             public Text itemName;
             public Text itemPrice;
             public Text itemId;
-            public Sprite itemUnit;
-            public Sprite itemImg;
+            public Image itemUnit;
+            public Image itemImg;
 
             public ItemView (Transform rootView)
             {
                 itemPrice   = rootView.Find("txt_itemPrice").GetComponent<Text>();
                 itemName = rootView.Find("txt_itemName").GetComponent<Text>();
                 //itemId = rootView.Find("txt_itemId").GetComponent<Text>();
-                itemUnit = rootView.Find("img_unit").GetComponent<Sprite>();
-                itemImg = rootView.Find("img_item").GetComponent<Sprite>();
+                itemUnit = rootView.Find("img_unit").GetComponent<Image>();
+                itemImg = rootView.Find("img_item").GetComponent<Image>();
                // itemImg = rootView.Find("img_item").GetComponent<SpriteRenderer>();
             }
         }

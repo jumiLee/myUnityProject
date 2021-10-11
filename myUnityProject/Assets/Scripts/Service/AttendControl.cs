@@ -74,8 +74,20 @@ namespace Service
 
             view.day_no.text = model.day_no.ToString() + "일";
             view.rwd_id.text = model.rwd_id.ToString();
-            view.rwd_type = Resources.Load<Sprite>("Images/icon/" + model.rwd_type.ToString()) as Sprite;
+            if (model.rwd_type == 1)
+            {   //rwd_type=1(item)
+                view.rwd_type.sprite = Resources.Load<Sprite>("Images/item/" + model.rwd_type.ToString()) as Sprite;
 
+            }
+            else
+            {
+                view.rwd_type.sprite = Resources.Load<Sprite>("Images/rwd_type/rwd_type_" + model.rwd_type.ToString()) as Sprite;
+            }
+
+            //hidden compelete image
+            if(model.rwd_rcv_flag.Equals("N")) {
+                view.rwd_rcv_flag.enabled = false;
+            }
             return view;
         }
 
@@ -85,13 +97,15 @@ namespace Service
         {
             public Text day_no;
             public Text rwd_id;
-            public Sprite rwd_type;
+            public Image rwd_type;
+            public Image rwd_rcv_flag;
 
             public AttendView(Transform rootView)
             {
-                day_no  = rootView.Find("txt_day_no").GetComponent<Text>();
-                rwd_id  = rootView.Find("txt_rwd_id").GetComponent<Text>();
-                rwd_type= rootView.Find("img_rwd_type").GetComponent<Sprite>();
+                day_no       = rootView.Find("txt_day_no").GetComponent<Text>();
+                rwd_id       = rootView.Find("txt_rwd_id").GetComponent<Text>();
+                rwd_type     = rootView.Find("img_rwd_type").GetComponent<Image>();
+                rwd_rcv_flag = rootView.Find("img_complete").GetComponent<Image>();
             }
         }
 
