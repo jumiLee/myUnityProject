@@ -34,16 +34,12 @@ namespace Service
 
         public MemberControl memberControl;
         public AttendControl attendControl;
-        // public CharacterControl characterControl;
         private MemberInfoPacket memberInfoPacket;
         //private CharacterPacket characterPacket;
         private MembeMemberInitialInfoPacket membeMemberInitialInfoPacket;
 
         private void Start()
         {
-            //memberInfoPacket = new MemberInfoPacket();
-            //memberService = userSessionObject.GetComponent<MemberService>();
-            //characterControl = userSessionObject.GetComponent<CharacterControl>();
             memberControl.HttpObject = _UserSession._HttpObject;
         }
 
