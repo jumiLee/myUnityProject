@@ -10,19 +10,11 @@ namespace Service
 {
     public class ItemControl : MonoBehaviour
     {
-
         public UserSession userSession;
-        //public MemberService memberService;
-        //public CharacterControl characterControl;
         public CommonUtil commonUtil;
         
         public GameObject itemPrefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
-
-        //public Sprite itemIconSprite;
-        //public Sprite unitIconSprite;
-        //public Text priceText;
-
 
         public SpriteAtlas AtlasItem;
         public SpriteAtlas AtlasIcon;
@@ -32,24 +24,29 @@ namespace Service
 
         public ArrayList selectedItemAry = new ArrayList();
 
-
-        //private HttpSock httpSock;
-        //private UserCharacter userCharacter;
-       
         private void Start()
         {
-            AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
-            AtlasIcon = Resources.Load<SpriteAtlas>("Atlas/IconSpriteAtlas") as SpriteAtlas;
+            //AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
+            //AtlasIcon = Resources.Load<SpriteAtlas>("Atlas/IconSpriteAtlas") as SpriteAtlas;
+        }
 
-            //httpSock = userSession._HttpObject;
-            //userCharacter = userSession._UserCharacter;
+        private void OnEnable()
+        {
 
+            Debug.Log("총 " + selectedItemAry.Count + " 개의 아이템 이미 선택");
+            //Debug.Log("1.selectedItemAry.Count:" + selectedItemAry.Count);
+            //selectedItemAry.Clear();
+            selectedItemAry = new ArrayList();
+            views.Clear();
+            Debug.Log("2.selectedItemAry.Count:" + selectedItemAry.Count);
         }
         //선택한 아이템 정보를 배열에 저장 
         public void SelectMultiItem(string item_id)
         {
             selectedItemAry.Add(item_id);
-            Debug.Log("item_id:" + item_id);
+            //TODO :for debug
+            Debug.Log("총 " + selectedItemAry.Count + " 개의 아이템 선택");
+            // foreach(string it in selectedItemAry) Debug.Log(it);
         }
 
         //카테고리별 아이템 조회 
@@ -125,7 +122,6 @@ namespace Service
                 {
                     Debug.Log("object instantiate Failed!");
                 }
-                instance.GetComponentInChildren<Text>().text = model.item_id.ToString();
                 views.Add(view);
             }
         }

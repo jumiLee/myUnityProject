@@ -24,8 +24,8 @@ namespace Entity
         public int item_equip_flag;
         public int item_grade;
         public int use_flag;
-        public DateTime create_dt;
-        public DateTime del_dt;
+        public string create_dt;
+        public string del_dt;
     }
 
 }

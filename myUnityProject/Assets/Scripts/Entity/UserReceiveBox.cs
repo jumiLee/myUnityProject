@@ -11,9 +11,9 @@ namespace Entity
         public int rwd_type;
         public int rwd_id;
         public int rwd_sub_id;
-        public DateTime issue_dt;
+        public string issue_dt;
         public string receive_msg;
-        public DateTime check_dt;
+        public string check_dt;
         public string check_flag;
         public string sender_nickname;
         public string rwd_nm;

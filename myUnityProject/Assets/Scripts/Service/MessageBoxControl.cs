@@ -2,10 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Packet;
 using Entity;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.U2D;
-using PrefabView;
+using System;
 
 namespace Service
 {
@@ -13,8 +11,6 @@ namespace Service
     {
         public UserSession userSession;
         public CommonUtil commonUtil;
-
-        public MsgBoxPrefabView prefabView;
 
         public GameObject prefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
@@ -51,7 +47,6 @@ namespace Service
         }
 
         //Receive Message Reward
-
         public void ReceiveReward(int user_account, int receive_sn)
         {
             int job_code = (int)JobCodeType.RECEIVE_BOX_RECEIVE_ONE;
@@ -63,17 +58,16 @@ namespace Service
 
             ResultPacket resultPacket = JsonUtility.FromJson<ResultPacket>(json);
 
-       //Generate item list
-       if (resultPacket.resultCd == 0)
-       {
-                GetUserReceiveBox();
-       }
-       else
-       {
-           commonUtil.HandleAlert(resultPacket.resultMsg);
-       }
+           //Generate item list
+           if (resultPacket.resultCd == 0)
+           {
+                    GetUserReceiveBox();
+           }
+           else
+           {
+               commonUtil.HandleAlert(resultPacket.resultMsg);
+           }
         }
-
 
         //Generate items list with item prefab icon
         void GenerateItemList(List<UserReceiveBox> list)
@@ -112,13 +106,13 @@ namespace Service
         //make item view according to item class
         MsgBoxPrefabView InitializeItemView(GameObject viewGameObject, UserReceiveBox model)
         {
-
             MsgBoxPrefabView view = new MsgBoxPrefabView(viewGameObject.transform);
 
-            view.message.text = model.receive_msg.ToString();
-            view.sender.text = model.sender_nickname.ToString();
-            view.issueDate.text = model.issue_dt.ToString();
-            view.rwdImg = Resources.Load<Sprite>("Images/item/" + model.rwd_id.ToString()) as Sprite;
+            view.message.text   = model.receive_msg.ToString();
+            view.sender.text    = model.sender_nickname.ToString();
+            DateTime myDate     = DateTime.Parse(model.issue_dt);
+            view.issueDate.text = myDate.ToString("yyyy.MM.dd.HH.mm.ss");
+            view.rwdImg.sprite  = Resources.Load<Sprite>("Images/rwd_type/rwd_type_" + model.rwd_type.ToString()) as Sprite;
 
             return view;
         }
@@ -129,14 +123,14 @@ namespace Service
             public Text message;
             public Text sender;
             public Text issueDate;
-            public Sprite rwdImg;
+            public Image rwdImg;
 
             public MsgBoxPrefabView(Transform rootView)
             {
                 message     = rootView.Find("txt_message").GetComponent<Text>();
                 sender      = rootView.Find("txt_sender").GetComponent<Text>();
                 issueDate   = rootView.Find("txt_issue_dt").GetComponent<Text>();
-                rwdImg      = rootView.Find("img_rwd").GetComponent<Sprite>();
+                rwdImg      = rootView.Find("img_rwd").GetComponent<Image>();
             }
         }
     }

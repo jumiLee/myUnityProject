@@ -46,7 +46,6 @@ namespace Service
         public void SelectMultiEquipItem(string item_uniqueID)
         {
             selectedEquipItemAry.Add(item_uniqueID);
-            Debug.Log("item_uniqueID:" + item_uniqueID);
         }
 
         //Search My Inventory Items by Item Category 
