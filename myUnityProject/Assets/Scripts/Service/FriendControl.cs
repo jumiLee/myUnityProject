@@ -42,21 +42,27 @@ namespace Service
         //친구관리 관련 
         public void MgmtFriend(int job_code, int user_account, int frd_account)
         {
-            Debug.Log("job_code:" + job_code);
-            string url = "";
-            switch (job_code)
-            { 
-                case 2:  url = "acceptFriend.do";
-                    break;
-                case 3:
-                    url = "rejectFriend.do";
-                    break;
-                case 5:
-                    url = "deleteFriend.do";
-                    break;
+            string json = userSession._HttpObject.Connect("mgmtFriend.do",  "user_account=" + user_account +
+                                                                            "&job_code="     + job_code +
+                                                                            "&frd_account="  + frd_account);
+
+            userFriendPacket = JsonUtility.FromJson<UserFriendPacket>(json);
+            if (userFriendPacket.resultCd == 0)
+            {
+                GenerateItemList(userFriendPacket.userFriendList);
             }
-            string json = userSession._HttpObject.Connect(url,  "user_account=" + userSession._UserDetail.account +
-                                                                "&frd_account=" + frd_account);
+            else
+            {
+                commonUtil.HandleAlert(userFriendPacket.resultMsg);
+            }
+        }
+
+        //친구신청 
+        public void RequestFriend(int frd_account)
+        {
+            string json = userSession._HttpObject.Connect("mgmtFriend.do", "user_account=" + userSession._UserDetail.account +
+                                                                            "&job_code=" + (int)FriendMgmtType.REQUEST_FRIEND +
+                                                                            "&frd_account=" + frd_account);
 
             userFriendPacket = JsonUtility.FromJson<UserFriendPacket>(json);
             if (userFriendPacket.resultCd == 0)
@@ -100,13 +106,13 @@ namespace Service
             view.nickname.text = model.frd_nickname.ToString();
 
             //친구요청수락버튼 
-            view.btn_add.onClick.AddListener(() => MgmtFriend(2, model.user_account, model.frd_account));
+            view.btn_add.onClick.AddListener(() => MgmtFriend((int)FriendMgmtType.ACCEPT_FRIEND, model.user_account, model.frd_account));
 
             //친구요청거절버튼 
-            view.btn_reject.onClick.AddListener(() => MgmtFriend(3, model.user_account, model.frd_account));
+            view.btn_reject.onClick.AddListener(() => MgmtFriend((int)FriendMgmtType.REJECT_FRIEND, model.user_account, model.frd_account));
 
             //친구삭제버튼 
-            view.btn_delete.onClick.AddListener(() => MgmtFriend(5, model.user_account, model.frd_account));
+            view.btn_delete.onClick.AddListener(() => MgmtFriend((int)FriendMgmtType.DELETE_FRIEND, model.user_account, model.frd_account));
 
             //이미 친구인 경우 
             if (model.frd_status_cd == 1)

@@ -49,7 +49,7 @@ namespace Service
         //Receive Message Reward
         public void ReceiveReward(int user_account, int receive_sn)
         {
-            int job_code = (int)JobCodeType.RECEIVE_BOX_RECEIVE_ONE;
+            int job_code = (int)ReceiveBoxJobType.RECEIVE_BOX_RECEIVE_ONE;
 
             string json = httpSock.Connect( "mgmtReceiveBox.do",
                                             "job_code=" + job_code

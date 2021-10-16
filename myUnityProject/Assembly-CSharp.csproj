@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>7.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,10 +53,159 @@
     <UnityVersion>2021.1.18f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets/MsgBoxPrefabView2.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/DragMode.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/KeyboardInputEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/DownloadChangedEventArgs.cs" />
+    <Compile Include="Assets/Scripts/Service/MessageBoxControl.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/WebViewPrefab.cs" />
     <Compile Include="Assets/Scripts/DatabaseHandler.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/UrlAction.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/WebPluginFactory.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWebView.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/TerminationType.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/DefaultPointerInputDetector.cs" />
+    <Compile Include="Assets/Scripts/Entity/Attend.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/EventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithKeyDownAndUp.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/PointerEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/TerminatedEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Windows/WindowsWebPlugin.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/UrlChangedMessage.cs" />
+    <Compile Include="Assets/Scripts/Packet/HeaderPacket.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Standalone/StandaloneWebPlugin.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/MockWebView.cs" />
+    <Compile Include="Assets/Scripts/TabGroup.cs" />
+    <Compile Include="Assets/Scripts/Service/CharacterControl.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Windows/WindowsWebView.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ProgressChangeType.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/WebViewUnavailableException.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/VideoRectChangedMessageValue.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/CanvasWebViewPrefab.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Web.cs" />
+    <Compile Include="Assets/Scripts/Service/FriendControl.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Cookie.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Mac/MacWebPluginRegistrant.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/UrlActionType.cs" />
+    <Compile Include="Assets/Scripts/TestDynamicPrefabWithButtonOnclick.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ScrolledEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/CanvasWebViewDemo.cs" />
     <Compile Include="Assets/Scripts/SimpleCameraController.cs" />
-    <Compile Include="Assets/Scripts/ButtonController.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/UrlChangedEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/PopupMode.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithSettableUserAgent.cs" />
+    <Compile Include="Assets/Scripts/Service/ItemControl.cs" />
+    <Compile Include="Assets/Scripts/Packet/UserAttendPacket.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/SimpleWebViewDemo.cs" />
+    <Compile Include="Assets/Scripts/Entity/UserReceiveBox.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithPopups.cs" />
+    <Compile Include="Assets/Scripts/UserSession.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/HardwareKeyboardListener.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ConsoleMessageLevel.cs" />
+    <Compile Include="Assets/Scripts/TabButtonControl.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/MockWebPlugin.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithMovablePointer.cs" />
+    <Compile Include="Assets/Scripts/Packet/UserReceiveBoxPacket.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/Dispatcher.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithPointerDownAndUp.cs" />
+    <Compile Include="Assets/Scripts/Entity/UserCharacter.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/CanvasWorldSpaceDemo.cs" />
+    <Compile Include="Assets/Scripts/Service/InitialSetControl.cs" />
+    <Compile Include="Assets/Scripts/WebViewControl.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/FocusedInputFieldChangedEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithDownloads.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/CanvasPointerInputDetector.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ScriptDialogEventArgs.cs" />
+    <Compile Include="Assets/Scripts/HttpSock.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/PointerOptions.cs" />
+    <Compile Include="Assets/Scripts/Entity/UserDetail.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithNativeOnScreenKeyboard.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/Config.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/FileSelectionEventArgs.cs" />
+    <Compile Include="Assets/Scripts/Service/AttendControl.cs" />
+    <Compile Include="Assets/Scripts/CommonUtil.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/PopupRequestedEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/BridgeMessage.cs" />
+    <Compile Include="Assets/Scripts/Entity/Character.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/SerializableRect.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/XrUtils.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/ConsoleBridgeMessage.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ClickedEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/MouseButton.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Keyboard.cs" />
+    <Compile Include="Assets/Scripts/Service/MemberControl.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/BaseWebView.cs" />
+    <Compile Include="Assets/MsgBoxPrefabView.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ConsoleMessageEventArgs.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/CameraRotator.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/WebViewOptions.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/CanvasKeyboard.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/KeyModifier.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/LabelAttribute.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/StringBridgeMessage.cs" />
+    <Compile Include="Assets/Scripts/Entity/UserCharEquipItem.cs" />
+    <Compile Include="Assets/Scripts/Packet/UserFriendPacket.cs" />
+    <Compile Include="Assets/Scripts/Entity/UserAttend.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/CanvasViewportMaterialView.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ProgressChangedEventArgs.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/KeyboardUi.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithKeyModifiers.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/DownloadMessage.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Windows/WindowsWebPluginRegistrant.cs" />
+    <Compile Include="Assets/Scripts/Entity/CharacterCustInfo.cs" />
+    <Compile Include="Assets/Scripts/Service/ItemEquipControl.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IPluginWithTouchScreenKeyboard.cs" />
+    <Compile Include="Assets/Scripts/Packet/MemberInfoPacket.cs" />
+    <Compile Include="Assets/Scripts/Entity/NoticeNew.cs" />
+    <Compile Include="Assets/Scripts/Entity/Member.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/BaseKeyboard.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWebPlugin.cs" />
+    <Compile Include="Assets/Scripts/Packet/MemberInitialInfoPacket.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/AdvancedWebViewDemo.cs" />
+    <Compile Include="Assets/Scripts/Entity/UserFriend.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/SettingsException.cs" />
+    <Compile Include="Assets/Scripts/Packet/ResultPacket.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/VideoRectChangedMessage.cs" />
+    <Compile Include="Assets/Scripts/Packet/UserCharEquipItemPacket.cs" />
+    <Compile Include="Assets/Scripts/Packet/ItemPacket.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/Utils.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithNative2DMode.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/JsonArrayWrapper.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Standalone/StandaloneWebView.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/BaseWebViewPrefab.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/PopupDemo.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/WebPluginType.cs" />
+    <Compile Include="Assets/Scripts/Entity/Item.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/XRSettingsWrapper.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/FileSelectionMessage.cs" />
+    <Compile Include="Assets/Scripts/ReceiveBoxJobType.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/WebViewLogger.cs" />
+    <Compile Include="Assets/Scripts/ScrollViewAdapter.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Mac/MacWebView.cs" />
+    <Compile Include="Assets/test.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/StringWithIdBridgeMessage.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Mac/MacWebPlugin.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/AuthRequestedEventArgs.cs" />
+    <Compile Include="Assets/Scripts/Packet/CharacterPacket.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/FocusedInputFieldType.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IPointerInputDetector.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/CanvasPopupDemo.cs" />
+    <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/ViewportMaterialView.cs" />
+    <Compile Include="Assets/Scripts/FriendMgmtType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/VuplexWebViewChromium/chrome_elf.dll" />
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/x86_64/VuplexWebViewWindows.dll" />
+    <None Include="Assets/CleanCartoonGUI/readme.txt" />
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/VuplexWebViewChromium/libcef.dll" />
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/VuplexWebViewChromium/d3dcompiler_47.dll" />
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/VuplexWebViewChromium/libGLESv2.dll" />
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/VuplexWebViewChromium/libEGL.dll" />
+    <None Include="Assets/Vuplex/WebView/Licenses/LICENSE_Windows_macOS.txt" />
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/x86/VuplexWebViewWindows.dll" />
+    <None Include="Assets/Vuplex/WebView/Plugins/Windows/libcef_with_codecs.dll" />
+    <None Include="Assets/Vuplex/WebView/Shaders/Common/ViewportShader.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -653,6 +802,9 @@
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.VisualScripting.Flow.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.InternalAPIEngineBridge.001">
+      <HintPath>Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -686,8 +838,14 @@
     <Reference Include="VSSettingsProvider">
       <HintPath>Library/ScriptAssemblies/VSSettingsProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Path.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library/ScriptAssemblies/Unity.VisualScripting.Flow.dll</HintPath>
@@ -706,6 +864,9 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Core">
       <HintPath>Library/ScriptAssemblies/Unity.VisualScripting.Core.dll</HintPath>
@@ -731,8 +892,20 @@
     <Reference Include="Unity.Mathematics.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Common.Runtime">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.SpriteShape.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.SpriteShape.Runtime">
+      <HintPath>Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>

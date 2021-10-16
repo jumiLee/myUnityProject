@@ -71,9 +71,6 @@ namespace Service
         //Register new Member 
         public void RegisterMember()
         {
-            int result_cd = 0;
-           
-
             if (string.IsNullOrEmpty(email.text))
             {
                 commonUtil.HandleAlert("이메일을 입력하세요.");
@@ -93,10 +90,12 @@ namespace Service
             }
 
             memberInfoPacket = memberControl.RegisterMember(email.text, pwd.text, nickname.text);
-            result_cd = memberInfoPacket.resultCd;
 
-            if (result_cd == 0)  //register success
+            if (memberInfoPacket.resultCd == 0)  //register success
             {
+                membeMemberInitialInfoPacket = memberControl.GetUserInitialInfo(memberInfoPacket.account);
+
+                //UserSessionObject에 사용자 정보 set
                 SetEssentialInfo();
                 registerPanel.SetActive(false);
             }
