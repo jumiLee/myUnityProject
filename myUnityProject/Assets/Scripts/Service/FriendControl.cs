@@ -67,7 +67,7 @@ namespace Service
             userFriendPacket = JsonUtility.FromJson<UserFriendPacket>(json);
             if (userFriendPacket.resultCd == 0)
             {
-                GenerateItemList(userFriendPacket.userFriendList);
+                commonUtil.HandleAlert("친구신청이 완료되었습니다.");
             }
             else
             {
