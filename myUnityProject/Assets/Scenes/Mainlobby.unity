@@ -3281,6 +3281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userSession: {fileID: 146724017}
   commonUtil: {fileID: 975802826}
+  panel: {fileID: 716668748}
   itemPrefab: {fileID: 800213714408399813, guid: 9ef5071c01c3f4458a07e6b5c9860f57, type: 3}
   content: {fileID: 1831805915}
   cashPacket:
@@ -3289,6 +3290,22 @@ MonoBehaviour:
     account: 0
     sid: 
     cashList: []
+  resultPaymentPacket:
+    resultCd: 0
+    resultMsg: 
+    account: 0
+    sid: 
+    tradeNo: 0
+    appId: 
+    orderNo: 
+    trade_res_cd: 0
+    trade_res_msg: 
+    trade_res_key: 
+  resultPacket:
+    resultCd: 0
+    resultMsg: 
+    account: 0
+    sid: 
   device_type: 1
   payment_type: 1
 --- !u!224 &260027459

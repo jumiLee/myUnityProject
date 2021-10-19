@@ -78,6 +78,7 @@
     <Compile Include="Assets/Scripts/TabGroup.cs" />
     <Compile Include="Assets/Scripts/Service/CharacterControl.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Windows/WindowsWebView.cs" />
+    <Compile Include="Assets/Scripts/Service/CashControl.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/ProgressChangeType.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/WebViewUnavailableException.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/VideoRectChangedMessageValue.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/MockWebPlugin.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithMovablePointer.cs" />
     <Compile Include="Assets/Scripts/Packet/UserReceiveBoxPacket.cs" />
+    <Compile Include="Assets/Scripts/Entity/Cash.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/Dispatcher.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IWithPointerDownAndUp.cs" />
     <Compile Include="Assets/Scripts/Entity/UserCharacter.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/DownloadMessage.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Windows/WindowsWebPluginRegistrant.cs" />
     <Compile Include="Assets/Scripts/Entity/CharacterCustInfo.cs" />
+    <Compile Include="Assets/Scripts/FriendMgmtType.cs" />
     <Compile Include="Assets/Scripts/Service/ItemEquipControl.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IPluginWithTouchScreenKeyboard.cs" />
     <Compile Include="Assets/Scripts/Packet/MemberInfoPacket.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/AdvancedWebViewDemo.cs" />
     <Compile Include="Assets/Scripts/Entity/UserFriend.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/SettingsException.cs" />
+    <Compile Include="Assets/Scripts/Packet/CashPacket.cs" />
     <Compile Include="Assets/Scripts/Packet/ResultPacket.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/VideoRectChangedMessage.cs" />
     <Compile Include="Assets/Scripts/Packet/UserCharEquipItemPacket.cs" />
@@ -192,7 +196,8 @@
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/IPointerInputDetector.cs" />
     <Compile Include="Assets/Vuplex/WebView/Demos/Scripts/CanvasPopupDemo.cs" />
     <Compile Include="Assets/Vuplex/WebView/Scripts/Common/Internal/ViewportMaterialView.cs" />
-    <Compile Include="Assets/Scripts/FriendMgmtType.cs" />
+    <Compile Include="Assets/Scripts/Packet/ResultPaymentPacket.cs" />
+    <Compile Include="Assets/Scripts/Entity/UserPayment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/Vuplex/WebView/Plugins/Windows/VuplexWebViewChromium/chrome_elf.dll" />

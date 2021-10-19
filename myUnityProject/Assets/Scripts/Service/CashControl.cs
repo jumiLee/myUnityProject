@@ -13,10 +13,14 @@ namespace Service
         public UserSession userSession;
         public CommonUtil commonUtil;
 
+        public GameObject panel;
+
         public GameObject itemPrefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
 
         public CashPacket cashPacket;
+        public ResultPaymentPacket resultPaymentPacket;
+        public ResultPacket resultPacket;
         public List<ItemView> views = new List<ItemView>();
 
         public int device_type;
@@ -27,9 +31,9 @@ namespace Service
         {
 
             string json = userSession._HttpObject.Connect("selectCashList.do",
-                                           "user_account="  + userSession._UserDetail.account
-                                         + "&device_type="  + device_type
-                                         + "&payment_type=" + payment_type);
+                                                           "user_account="  + userSession._UserDetail.account
+                                                         + "&device_type="  + device_type
+                                                         + "&payment_type=" + payment_type);
 
             cashPacket = JsonUtility.FromJson<CashPacket>(json);
 
@@ -44,30 +48,71 @@ namespace Service
             }
         }
 
-        //아이템 구매 
-        public void BuyCash(int cash_id)
+        //Cash 구매 
+        public void BuyCash(int cash_id, int device_type, int payment_type)
         {
-            string json = userSession._HttpObject.Connect("buyAndEquipItem.do",
-                                           "user_account=" + userSession._UserCharacter.user_account
-                                         + "&char_id=" + userSession._UserCharacter.char_id
-                                         + "&user_char_sn=" + userSession._UserCharacter.user_char_sn
-                                         );
-            commonUtil.HandleAlert("준비중입니다.");
-            /*
-            itemPacket = JsonUtility.FromJson<ItemPacket>(json);
+            //1. 결제 요청 
+            string json = userSession._HttpObject.Connect( "requestPayment.do",
+                                                           "user_account=" + userSession._UserCharacter.user_account
+                                                         + "&cash_id=" + cash_id
+                                                         + "&device_type=" + device_type
+                                                         + "&payment_type=" + payment_type);
+            resultPaymentPacket = JsonUtility.FromJson<ResultPaymentPacket>(json);
 
-            //Generate item list
-            if (itemPacket.resultCd == 0)
+            if (resultPaymentPacket.resultCd == 0)
             {
-                GenerateItemList(itemPacket.itemList);
+                //TODO : 2. 결제사 통신 부분 추가 
+                RequestPayment();
+
+                //3.결제결과 업데이트 
+                UpdatePayment(cash_id);
+
             }
             else
             {
-                commonUtil.HandleAlert(itemPacket.resultMsg);
+                commonUtil.HandleAlert(resultPaymentPacket.resultMsg);
             }
-            */
+
         }
 
+        //TODO : 결제사 통신 부분 (결제사에 맞게 수정 및 암호화 필요)
+        private ResultPaymentPacket RequestPayment()
+        {
+            string orderNo = "testOrderNo";
+            int trade_res_cd = 0;
+            string trade_res_msg = "testResMsg";
+            string trade_res_key = "ONLYGODWILLMAKEAWAY";
+
+            resultPaymentPacket.orderNo = orderNo;
+            resultPaymentPacket.trade_res_cd = trade_res_cd;
+            resultPaymentPacket.trade_res_msg = trade_res_msg;
+            resultPaymentPacket.trade_res_key = resultPaymentPacket.tradeNo+ trade_res_key;
+
+            return resultPaymentPacket;
+        }
+
+        private void UpdatePayment(int cash_id)
+        {
+            string json = userSession._HttpObject.Connect("updatePayment.do",
+                                                           "user_account="   + userSession._UserCharacter.user_account
+                                                         + "&cash_id="       + cash_id
+                                                         + "&trade_no="      + resultPaymentPacket.tradeNo
+                                                         + "&order_no="      + resultPaymentPacket.orderNo
+                                                         + "&trade_res_cd="  + resultPaymentPacket.trade_res_cd
+                                                         + "&trade_res_msg=" + resultPaymentPacket.trade_res_msg
+                                                         + "&trade_res_key=" + resultPaymentPacket.trade_res_key);
+
+            resultPacket = JsonUtility.FromJson<ResultPacket>(json);
+            if (resultPacket.resultCd == 0)
+            {
+                commonUtil.HandleAlert("구매성공");
+                panel.SetActive(false);
+            }
+            else
+            {
+                commonUtil.HandleAlert(resultPacket.resultMsg);
+            }
+        }
 
         //Generate item list with item prefab icon
         void GenerateItemList(List<Cash> itemList)
@@ -91,7 +136,8 @@ namespace Service
                 //생성한 버튼에 onClick Event 생성 
                 if (instance.GetComponentInChildren<Button>())
                 {
-                    instance.GetComponentInChildren<Button>().onClick.AddListener(() => BuyCash(model.cash_id));
+                    instance.GetComponentInChildren<Button>()
+                        .onClick.AddListener(() => BuyCash(model.cash_id, model.device_type, model.payment_type));
                 }
                 else
                 {
