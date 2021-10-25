@@ -11,10 +11,8 @@ namespace Service
     public class ItemEquipControl : MonoBehaviour
     {
         public UserSession userSession;
-        //
-        //public MemberService memberService;
-        //public CharacterControl characterControl;
         public CommonUtil commonUtil;
+        public InitialSetControl initialSetControl;
 
         public GameObject prefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
@@ -23,24 +21,16 @@ namespace Service
         //public Sprite unitIconSprite;
         //public Text priceText;
 
-
         public SpriteAtlas AtlasItem;
 
         public UserCharEquipItemPacket userCharEquipItemPacket;
         public List<ItemView> views = new List<ItemView>();
 
         public ArrayList selectedEquipItemAry = new ArrayList();
-        //public UserCharacter userCharacter;
-
-        //private HttpSock httpSock;
 
         private void Start()
         {
-            AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
-
-            //characterPacket = characterControl._CharacterPacket;
-            //userCharacter = userSession._UserCharacter;
-            //httpSock = userSession._HttpObject;
+           // AtlasItem = Resources.Load<SpriteAtlas>("Atlas/ItemSpriteAtlas") as SpriteAtlas;
         }
         //선택한 아이템 정보를 배열에 저장 
         public void SelectMultiEquipItem(string item_uniqueID)
@@ -61,6 +51,8 @@ namespace Service
              
             userCharEquipItemPacket = JsonUtility.FromJson<UserCharEquipItemPacket>(json);
 
+            initialSetControl.SetEssentialInfo(); //inventory new icon update
+
             //Generate item list
             if (userCharEquipItemPacket.resultCd == 0)
             {   
@@ -73,20 +65,22 @@ namespace Service
         }
 
         //Euqip Item
-        public void EquipItem (int equip_yn, int item_id, int item_uniqueID, int item_category)
+        public void EquipItem (string equip_yn, int item_id, int item_uniqueID, int item_category)
         {
-            int job_code = (equip_yn == 1) ? 2 : 1; //1:장착, 2: 장착해제 
+            Debug.Log("equipItem call");
+
+            int job_code = (equip_yn.Equals("Y")) ? 2 : 1; //1:장착, 2: 장착해제 
 
             string json = userSession._HttpObject.Connect("equipItem.do",
-                                           "job_code=" + job_code
-                                         + "&user_account=" + userSession._UserCharacter.user_account
-                                         + "&char_id=" + userSession._UserCharacter.char_id
-                                         + "&user_char_sn=" + userSession._UserCharacter.user_char_sn
-                                         + "&item_id=" + item_id
-                                         + "&item_uniqueID=" + item_uniqueID
-                                         + "&item_category=" + item_category
-                                         + "&item_type=0" 
-                                         );
+                                                           "job_code=" + job_code
+                                                         + "&user_account=" + userSession._UserCharacter.user_account
+                                                         + "&char_id=" + userSession._UserCharacter.char_id
+                                                         + "&user_char_sn=" + userSession._UserCharacter.user_char_sn
+                                                         + "&item_id=" + item_id
+                                                         + "&item_uniqueID=" + item_uniqueID
+                                                         + "&item_category=" + item_category
+                                                         + "&item_type=0" 
+                                                         );
 
             userCharEquipItemPacket = JsonUtility.FromJson<UserCharEquipItemPacket>(json);
 
@@ -126,15 +120,6 @@ namespace Service
                                                                                         model.item_id,
                                                                                         model.item_uniqueID,
                                                                                         model.item_category));
-                    
-                    //todo : change design style                                                                                                                         model.item_category));
-                    if(model.equip_yn == 2) //장착해제 
-                    {
-                        ColorBlock colors = instance.GetComponentInChildren<Button>().colors;
-                        colors.normalColor = Color.grey;
-                        //colors.highlightedColor = new Color32(255, 100, 100, 255);
-                        instance.GetComponentInChildren<Button>().colors = colors;
-                    }
                 }
                 else
                 {
@@ -153,8 +138,14 @@ namespace Service
             view.itemId.text = model.item_id.ToString();
             view.itemImg.sprite = Resources.Load<Sprite>("Images/item/" + model.item_img_no.ToString()) as Sprite;
 
-            //view.icon3Image.texture = availableIcons[model.icon3Index];
-
+            if (model.equip_yn.Equals("Y"))
+            {
+                view.selected_edge.enabled = true;
+            }
+            else
+            {
+                view.selected_edge.enabled = false;
+            }
             return view;
         }
 
@@ -167,11 +158,16 @@ namespace Service
             public Text itemId;
             public Image itemUnit;
             public Image itemImg;
+            public Image selected_edge;
+            public Button btn_basic;
 
             public ItemView(Transform rootView)
             {
-                itemId = rootView.Find("txt_itemId").GetComponent<Text>();
-                itemImg = rootView.Find("img_item").GetComponent<Image>();
+                itemId       = rootView.Find("txt_itemId").GetComponent<Text>();
+                itemImg      = rootView.Find("img_item").GetComponent<Image>();
+                selected_edge= rootView.Find("img_selected_edge").GetComponent<Image>();
+                btn_basic    = rootView.Find("btn_bg_basic").GetComponent<Button>();
+
                 // itemImg = rootView.Find("img_item").GetComponent<SpriteRenderer>();
             }
         }

@@ -21,7 +21,6 @@ namespace Service
 
         public GameObject registerPanel;
         public GameObject loginPanel;
-//        public GameObject Panel_attend;
 
         public Text user_gold;
         public Text user_coin;
@@ -34,8 +33,7 @@ namespace Service
 
         public MemberControl memberControl;
         public AttendControl attendControl;
-        private MemberInfoPacket memberInfoPacket;
-        //private CharacterPacket characterPacket;
+        private ResultPacket resultPacket;
         private MembeMemberInitialInfoPacket membeMemberInitialInfoPacket;
 
         private void Start()
@@ -46,13 +44,13 @@ namespace Service
         //Check Login
         public void LoginCheck()
         {
-            memberInfoPacket = memberControl.LoginCheck(login_email.text, login_pwd.text);
+            resultPacket = memberControl.LoginCheck(login_email.text, login_pwd.text);
 
         
-            if (memberInfoPacket.resultCd == 0)   
+            if (resultPacket.resultCd == 0)   
             {
                 //Character 가져옴 
-                membeMemberInitialInfoPacket = memberControl.GetUserInitialInfo(memberInfoPacket.account);
+                //membeMemberInitialInfoPacket = memberControl.GetUserInitialInfo(memberInfoPacket.account);
 
                 //UserSessionObject에 사용자 정보 set
                 SetEssentialInfo();
@@ -63,7 +61,7 @@ namespace Service
             else
             {
                 //fail alert window 
-                commonUtil.HandleAlert(memberInfoPacket.resultMsg);
+                commonUtil.HandleAlert(resultPacket.resultMsg);
             }
         }
 
@@ -89,37 +87,64 @@ namespace Service
                 return;
             }
 
-            memberInfoPacket = memberControl.RegisterMember(email.text, pwd.text, nickname.text);
+            resultPacket = memberControl.RegisterMember(email.text, pwd.text, nickname.text);
 
-            if (memberInfoPacket.resultCd == 0)  //register success
+            if (resultPacket.resultCd == 0)  //register success
             {
-                membeMemberInitialInfoPacket = memberControl.GetUserInitialInfo(memberInfoPacket.account);
+                //membeMemberInitialInfoPacket = memberControl.GetUserInitialInfo(memberInfoPacket.account);
 
                 //UserSessionObject에 사용자 정보 set
                 SetEssentialInfo();
                 registerPanel.SetActive(false);
             }
             else //register fail
-            {
+            { 
                 //show error message
-                commonUtil.HandleAlert(memberInfoPacket.resultMsg);
+                commonUtil.HandleAlert(resultPacket.resultMsg);
             }
         }
 
 
         //Setting Essential Information at UserSessionObject after login or register
-        void SetEssentialInfo()
+        public void SetEssentialInfo()
         {
-        //Member Info
+            membeMemberInitialInfoPacket = memberControl.GetUserInitialInfo(resultPacket.account);
 
-            _UserSession._UserDetail = memberInfoPacket.userDetail;
+            //Member Info
+            _UserSession._UserDetail = membeMemberInitialInfoPacket.userDetail;
 
         //New Sign Setting
-            _UserSession._NoticeNew.new_msg = membeMemberInitialInfoPacket.new_item_flag;
+            _UserSession._NoticeNew.new_msg = membeMemberInitialInfoPacket.new_msg_flag;
             _UserSession._NoticeNew.new_inventory = membeMemberInitialInfoPacket.new_item_flag;
             _UserSession._NoticeNew.new_friend = membeMemberInitialInfoPacket.new_frd_flag;
 
-        //화면에 보여질 항목 세팅 
+            if (_UserSession._NoticeNew.new_inventory.Equals("N"))  //check_flag=N 이면, new icon 보여줌 
+            {
+                inventory_new_btn.SetActive(true);
+            }
+            else
+            {
+                inventory_new_btn.SetActive(false);
+            }
+                
+            if (_UserSession._NoticeNew.new_msg.Equals("N")) { 
+                message_new_btn.SetActive(true);
+            }
+            else
+            {
+                message_new_btn.SetActive(false);
+            }
+
+            if (_UserSession._NoticeNew.new_friend.Equals("N"))
+            {
+                friend_new_btn.SetActive(true);
+            }
+            else
+            {
+                friend_new_btn.SetActive(false);
+            }
+                
+            //화면에 보여질 항목 세팅 
             this.user_gold.text = _UserSession._UserDetail.gold.ToString();
             this.user_coin.text = _UserSession._UserDetail.coin.ToString();
             this.user_nickname.text = _UserSession._UserDetail.nickname;
@@ -127,18 +152,9 @@ namespace Service
         //대표 캐릭터 정보 세팅  
             _UserSession._UserCharacter = membeMemberInitialInfoPacket.carryUserCharacter;
 
-            if (_UserSession._NoticeNew.new_inventory.Equals("Y"))
-                inventory_new_btn.SetActive(true);
-            if (_UserSession._NoticeNew.new_msg.Equals("Y")) 
-                message_new_btn.SetActive(true);
-            if (_UserSession._NoticeNew.new_friend.Equals("Y")) 
-                friend_new_btn.SetActive(true);
-
             //출석체크 창 열기  
             if (membeMemberInitialInfoPacket.attend_show_flag.Equals("Y"))
             {
-                //Panel_attend.SetActive(true);
-                //attendControl.httpSock = _UserSession._HttpObject;
                 attendControl.GetUserAttendList(_UserSession._UserDetail.account);
             }
                

@@ -12,6 +12,7 @@ namespace Service
     {
         public UserSession userSession;
         public CommonUtil commonUtil;
+        public InitialSetControl initialSetControl;
 
         public GameObject panel;
 
@@ -59,6 +60,7 @@ namespace Service
                                                          + "&payment_type=" + payment_type);
             resultPaymentPacket = JsonUtility.FromJson<ResultPaymentPacket>(json);
 
+            //결제요청 성공 시 
             if (resultPaymentPacket.resultCd == 0)
             {
                 //TODO : 2. 결제사 통신 부분 추가 
@@ -67,12 +69,14 @@ namespace Service
                 //3.결제결과 업데이트 
                 UpdatePayment(cash_id);
 
+                //4.메인정보 새로고침 
+                commonUtil.HandleAlert("충전되었습니다.");
+                initialSetControl.SetEssentialInfo();
             }
             else
             {
                 commonUtil.HandleAlert(resultPaymentPacket.resultMsg);
             }
-
         }
 
         //TODO : 결제사 통신 부분 (결제사에 맞게 수정 및 암호화 필요)

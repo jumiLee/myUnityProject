@@ -14,19 +14,19 @@ namespace Service
         }
 
         //login check -> return member info.
-        public MemberInfoPacket LoginCheck(string email, string pwd)
+        public ResultPacket LoginCheck(string email, string pwd)
         {
             string json = HttpObject.Connect("loginChk.do", "email=" + email + "&pwd=" + pwd);
 
-            return JsonUtility.FromJson<MemberInfoPacket>(json);
+            return JsonUtility.FromJson<ResultPacket>(json);
 
         }
 
-        public MemberInfoPacket RegisterMember(string email, string pwd, string nickname)
+        public ResultPacket RegisterMember(string email, string pwd, string nickname)
         {
             string json = HttpObject.Connect("register.do", "email=" + email + "&pwd=" + pwd + "&nickname=" + nickname);
 
-            return JsonUtility.FromJson<MemberInfoPacket>(json);
+            return JsonUtility.FromJson<ResultPacket>(json);
         }
 
         //로그인 후 필요한 정보를 조회 

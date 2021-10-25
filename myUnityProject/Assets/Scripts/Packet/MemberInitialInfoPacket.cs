@@ -7,6 +7,7 @@ namespace Packet
     public class MembeMemberInitialInfoPacket : HeaderPacket
     {
         public string sid;
+        public UserDetail userDetail;   //사용자 정보 
         public UserCharacter carryUserCharacter;    //대표캐릭터 
         public string new_msg_flag;
         public string new_item_flag;

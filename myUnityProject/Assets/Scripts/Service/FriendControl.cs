@@ -10,6 +10,8 @@ namespace Service
     {
         public UserSession userSession;
         public CommonUtil commonUtil;
+        public InitialSetControl initialSetControl;
+
         public GameObject Panel_Friend;
 
         public GameObject prefab;       //friend prefab
@@ -32,6 +34,8 @@ namespace Service
             {
                 GenerateItemList(userFriendPacket.userFriendList);
                 Panel_Friend.SetActive(true);
+
+                initialSetControl.SetEssentialInfo();
             }
             else
             {

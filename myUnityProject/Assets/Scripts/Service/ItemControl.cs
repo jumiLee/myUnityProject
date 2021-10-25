@@ -12,7 +12,8 @@ namespace Service
     {
         public UserSession userSession;
         public CommonUtil commonUtil;
-        
+        public InitialSetControl initialSetControl;
+
         public GameObject itemPrefab;   //item prefab for generating item icon
         public RectTransform content;   //item list will be added this panel
 
@@ -30,6 +31,12 @@ namespace Service
             //AtlasIcon = Resources.Load<SpriteAtlas>("Atlas/IconSpriteAtlas") as SpriteAtlas;
         }
 
+        public void InitializeItem()
+        {
+            selectedItemAry = new ArrayList();
+        }
+
+        /*
         private void OnEnable()
         {
 
@@ -40,13 +47,19 @@ namespace Service
             views.Clear();
             Debug.Log("2.selectedItemAry.Count:" + selectedItemAry.Count);
         }
+        */
         //선택한 아이템 정보를 배열에 저장 
         public void SelectMultiItem(string item_id)
         {
-            selectedItemAry.Add(item_id);
+            if(selectedItemAry.Contains(item_id))
+            {
+                commonUtil.HandleAlert("이미 선택한 아이템 입니다." );
+            }
+            else {
+                selectedItemAry.Add(item_id);
+            }
             //TODO :for debug
             Debug.Log("총 " + selectedItemAry.Count + " 개의 아이템 선택");
-            // foreach(string it in selectedItemAry) Debug.Log(it);
         }
 
         //카테고리별 아이템 조회 
@@ -82,17 +95,23 @@ namespace Service
 
             itemPacket = JsonUtility.FromJson<ItemPacket>(json);
 
-            //Generate item list
+            //아이템 구매 성공 시 
             if (itemPacket.resultCd == 0)
             {
+                //메인정보 새로고침
+                commonUtil.HandleAlert("구매성공");
+                initialSetControl.SetEssentialInfo();
+
+                //아이템 리스트 새로고침 
                 GenerateItemList(itemPacket.itemList);
+                InitializeItem();
             }
             else
             {
                 commonUtil.HandleAlert(itemPacket.resultMsg);
+                InitializeItem();
             }
         }
-
 
         //Generate item list with item prefab icon
         void GenerateItemList(List<Item> itemList)
