@@ -87,6 +87,7 @@ namespace Service
             //Generate item list
             if (userCharEquipItemPacket.resultCd == 0)
             {
+                initialSetControl.SetEssentialInfo(); //update character equip item info
                 GenerateItemList(userCharEquipItemPacket.userCharEquipItemList);
             }
             else

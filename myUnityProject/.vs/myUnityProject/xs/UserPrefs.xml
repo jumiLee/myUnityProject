@@ -1,21 +1,25 @@
 ﻿<Properties StartupConfiguration="{3278C650-204A-2FF9-35A3-2521C65E6070}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Service/CashControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/UIScripts/HttpSock.cs">
     <Files>
-      <File FileName="Assets/Scripts/Service/FriendControl.cs" Line="7" Column="1" />
-      <File FileName="Assets/Scripts/Service/CashControl.cs" Line="93" Column="18" />
-      <File FileName="Assets/Scripts/UserSession.cs" Line="14" Column="35" />
-      <File FileName="Assets/Scripts/Service/ItemEquipControl.cs" Line="124" Column="28" NotebookId="1" />
-      <File FileName="Assets/Scripts/Service/ItemControl.cs" Line="13" Column="24" NotebookId="1" />
+      <File FileName="Assets/UIScripts/Entity/UserCharacter.cs" Line="17" Column="37" />
+      <File FileName="Assets/UIScripts/Service/ItemEquipControl.cs" Line="96" Column="10" />
+      <File FileName="Assets/UIScripts/Service/InitialSetControl.cs" Line="102" Column="37" />
+      <File FileName="Assets/UIScripts/Service/MemberControl.cs" Line="27" Column="49" />
+      <File FileName="Assets/UIScripts/HttpSock.cs" Line="15" Column="5" />
+      <File FileName="Assets/UIScripts/UserSession.cs" Line="10" Column="21" NotebookId="1" />
+      <File FileName="Assets/UIScripts/Service/ItemCoinControl.cs" Line="15" Column="15" NotebookId="1" />
     </Files>
     <Pads>
-      <Pad Id="ClassPad">
+      <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="myUnityProject" expanded="True">
-            <Node name="Assembly-CSharp" expanded="True">
-              <Node name="Entity" expanded="True">
-                <Node name="Entity.UserReceiveBox" selected="True" />
+            <Node name="Assets" expanded="True">
+              <Node name="UIScripts" expanded="True">
+                <Node name="Entity" expanded="True" />
+                <Node name="Packet" expanded="True" />
+                <Node name="Service" expanded="True" />
+                <Node name="HttpSock.cs" selected="True" />
               </Node>
-              <Node name="Packet" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -24,7 +28,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="c1dc9a71-a897-4b78-b426-b3120d7a199f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="2a95a943-e513-4756-bf25-785d53257caa" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

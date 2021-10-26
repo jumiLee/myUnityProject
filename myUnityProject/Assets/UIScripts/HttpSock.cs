@@ -12,8 +12,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class HttpSock : MonoBehaviour
 {  
     private static Mutex mut = new Mutex();
-    //string MainURL = "http://ec2-54-180-113-10.ap-northeast-2.compute.amazonaws.com:8080/user1/"; 
-    string MainURL = "http://192.168.31.65:8080/mvWeb/"; //jumi-macbook
+    string MainURL = "http://ec2-15-165-19-192.ap-northeast-2.compute.amazonaws.com:8080/mvWeb/"; 
+    //string MainURL = "http://localhost:8080/mvWeb/"; //jumi-macbook
     public string tempRequestURL = "";
     public string tempRequestParam = "";
    

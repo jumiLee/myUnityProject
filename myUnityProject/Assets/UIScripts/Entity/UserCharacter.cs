@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Entity {
     [Serializable]
@@ -11,6 +12,7 @@ namespace Entity {
         public int carry_flag;
         //public string char_cust_info;
         public CharacterCustInfo char_cust_info;
+        public List<UserCharEquipItem> char_equip_items; //현재 장착 아이템 정보 
         public DateTime create_dt;
         public DateTime last_mod_dt;
     }
